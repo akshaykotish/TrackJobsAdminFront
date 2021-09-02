@@ -1,0 +1,22 @@
+.Results{
+    position: absolute;
+    width: 85%;
+    border-radius: 10px;
+    background-color: rgb(194, 194, 194);
+    color: grey;
+    max-height: 200px;
+    visibility: hidden;
+}
+
+.Results .ResultItem{
+    padding: 1%;
+    border-radius: 10px;
+    background-color: rgb(194, 194, 194);
+    color: grey;
+    cursor: pointer;
+}
+
+.Results .ResultItem:hover{
+    background-color: rgb(180, 180, 180);
+    color: rgb(112, 112, 112);
+}

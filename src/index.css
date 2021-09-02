@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +10,179 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.NavBox{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 20vw;
+  height: 100vh;
+  display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+
+.FormBox{
+  display: normal;
+  text-align: left;
+  color: grey;
+  width: 100%;
+  height: 100%;
+}
+ 
+input[type=text]
+{
+  width: 250px;
+  height: 45px;
+  outline: none;
+  padding:4%;
+  border-radius: 5px;
+  border: none;
+  background-color: whitesmoke;
+}
+
+input[type=password]
+{
+  width: 250px;
+  height: 45px;
+  outline: none;
+  padding:4%;
+  border-radius: 5px;
+  border: none;
+  background-color: whitesmoke;
+}
+.UploadButtonLabel
+{
+  width: 200px;
+  height: 45px;
+  color: grey;
+  border: none;
+  background-color: #474747;
+  box-shadow: 8px 8px 18px #414141;
+  display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+align-content: center;
+cursor: pointer;
+}
+
+button{
+  width: 200px;
+  height: 45px;
+  color: grey;
+  border: none;
+  background-color: #474747;
+  box-shadow: 8px 8px 18px #414141;
+}
+
+button:active{
+  box-shadow: none;
+}
+
+
+.mainbox{
+  padding: 5%;
+  width: 550px;
+  height: 400px;
+  align-items: center;
+  text-align: center;
+  background-color: #585858;
+  border-radius: 10px;
+  animation-name: mainboxrevanim;
+  animation-duration: 1s;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: grey;
+}
+
+.mainbox:hover{
+  animation-name: mainboxanim;
+  animation-duration: 0.5s;
+      background: #585858;
+      box-shadow:  20px 20px 60px black,
+                  -20px -20px 60px grey;
+  cursor: pointer;
+}
+
+
+@keyframes mainboxanim {
+  from {box-shadow: none;}
+  to {
+      background: #585858;
+      box-shadow:  20px 20px 60px black,
+                  -20px -20px 60px grey;
+  }
+}
+
+
+@keyframes mainboxrevanim {
+  from {box-shadow: 5px 5px 20px;}}
+  to {box-shadow: none;
+}
+
+
+.leftbox{
+    width: 60%;
+    display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: flex-start;
+align-items: flex-start;
+align-content: flex-start;
+}
+
+.rightbox{
+    width: 40%;
+    display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+align-content: center;
+  padding-right: 5%;
+  height: 100%;
+}
+
+
+.Logo{
+  width: 80px;
+}
+
+.TitleBox{
+  font-size: 15pt;
+  font-weight: bold;
+  text-align: left;
+}
+
+.ButtonBox{
+  display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+align-content: center;
+}
+
+
+.HomeBox{
+    margin-left: 20vw;
+    padding: 5%;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
 }

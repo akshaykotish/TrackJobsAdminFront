@@ -1,0 +1,56 @@
+.NavBarBox{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    overflow-y: auto;
+    background: #444444;
+    padding: 10%;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+}
+
+.NavBarBox:hover{
+    box-shadow:  10px 10px 20px #4b4b4b;
+}
+
+h3{
+    font-weight: bold;
+    color: grey;
+}
+
+.NavBarMenuItem{
+    width: 200px;
+    color: grey;
+    font-size: 15pt;
+    padding: 5%;
+    height: 40px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+    margin-bottom: 3%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.aakac{
+    font-size:8pt;
+    color: grey;
+}
+
+.underscore{
+    color: white;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}

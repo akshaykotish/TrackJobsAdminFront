@@ -1,0 +1,116 @@
+
+
+
+.AddJobBox{
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    top: 10%;
+    padding: 2%;
+    border: solid 20px rgb(167, 167, 167);
+    background-color: rgb(211, 211, 211);
+    border-radius: 30px;
+    color: grey;
+}
+
+input[type=text]{
+    width: 95%;
+    height: 50px;
+    padding: 1%;
+}
+
+
+.RoundBoxes{
+    padding: 1%;
+    border-radius: 10px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+}
+
+.RoundBox{
+    margin: 1%;
+    padding: 1%;
+    border-radius: 5px;
+    background-color: rgb(185, 185, 185);
+    color: black;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: space-around;
+    height: 40px;
+    min-width: 110px;
+}
+
+.CrossButton{
+    margin-left: 10px;
+    color: rgb(143, 0, 0);
+    cursor: pointer;
+}
+
+.AllJobs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    cursor: pointer;
+    height: 500px;
+}
+
+.JobBox{
+    cursor: pointer;
+    background-color: #444444;
+    box-shadow: 5px 6px 8px rgb(73, 73, 73);
+    border-radius: 10px;
+    margin: 10px;
+    width: 450px;
+    height: 100px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    font-weight: bold;
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.JobBox .JobBoxLogo{
+    padding: 20px;
+}
+
+.JobBox .JobBoxData{
+    max-width: 330px;
+    padding: 10px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    text-align: left;
+    font-weight: bold;
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.JobBoxDataHeading{
+    font-size: large;
+    color: grey;
+}
+
+.JobBoxDataSubHeading{
+    font-size: small;
+    color: grey;
+}

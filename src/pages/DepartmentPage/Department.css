@@ -1,0 +1,121 @@
+
+
+.ls{
+    width: 30vw;
+}
+
+
+.Popup{
+    width: 60vw;
+    height: 70vh;
+    position:fixed;
+    top: 18%;
+    left:20%;
+    bottom: 15%;
+    right: 20%;
+}
+
+
+.depbutton{
+    width: 100px;
+    margin: 4%;
+}
+
+#dname{
+    width: 100%;
+    text-align: center;
+}
+
+.All_Departments{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    cursor: pointer;
+    padding: 1%;
+    height: 500px;
+}
+
+.ItsDepartment{
+    background-color: rgba(0, 0, 0, 0.589);
+    border-radius: 10px;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    font-weight: bold;
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: solid 3px rgb(102, 102, 102);
+    overflow: hidden;
+}
+
+.ItsDepartment:hover{
+
+    box-shadow: -13px -13px 15px rgb(70, 70, 70),
+     13px 13px 15px rgb(97, 97, 97);
+}
+
+.ItsDepartment .Bottom{
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background-color: rgb(88, 88, 88);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.L{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 15px 18px 24px grey;
+    overflow: hidden;
+    border: solid 2px rgb(73, 73, 73);
+}
+
+.C{
+    padding: 10px;
+    width: 70%;
+    text-align: left;
+    color: white;
+}
+
+.R{
+    width: 15px;
+    height: 15px;
+}
+
+.MarginBox{
+    margin: 5px;
+}
+
+.itsrow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.searchbox{
+    width: 500px !important;
+    height: 45px !important;
+}

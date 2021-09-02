@@ -1,0 +1,20 @@
+body{
+    background-color: #585858;
+}
+
+.Header{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: #585858;
+    padding: 3%;
+}
+
+.Logo{
+    width: 50px;
+}
+
+.Menu{
+    
+}
