@@ -387,7 +387,7 @@ class AddJob extends React.Component{
 
         function ONCHNG(e){
             itis.setState({Department: e});
-            console.log(itis.state.Department);
+            console.log("=>" + e);
             searchedResults = [];
             if(e != ""){
             for(var i=0; i<itis.state.All_Departments.length; i++)

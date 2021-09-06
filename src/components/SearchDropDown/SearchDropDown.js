@@ -9,19 +9,60 @@ constructor(props)
 
     this.state = {
         defvalue: "",
+        resultsvalue: [],
+        visibility_hints:false,
     };
     
 }
 
 componentDidUpdate(prevprops){
-    if(prevprops.DefaultValue != this.props.DefaultValue){
-        if(this.props.DefaultValue != null && this.props.DefaultValue != undefined)
-    {
-        console.log("+." + this.props.DefaultValue);
-        this.setState({
-            defvalue: this.props.DefaultValue,
+
+    var itis = this;
+    
+    function OnResultItemClick(e){
+        document.getElementById("SearchInput").value = e;
+        itis.props.onValueChanged(e);
+        itis.setState({
+            defvalue: e,
         });
+        itis.setState({
+            visibility_hints:false,
+        })
     }
+
+
+    console.log(this.props.searchresults);
+    if(prevprops.DefaultValue != this.props.DefaultValue){
+
+        
+
+        if(this.props.searchresults != prevprops.searchresults)
+        {
+            var rslts = this.props.searchresults;
+                    var ot = [];
+                    for(var i=0; i<rslts.length; i++)
+                    {
+                        var rs = rslts[i];
+                        ot.push(
+                                
+                            <div onClick={()=>OnResultItemClick(rs)} className="ResultItem">{rslts[i]}</div>
+                            
+                        );
+                    }
+                var tO_show = ot.length  > 0 ? true:false;
+            this.setState({
+                resultsvalue:ot,
+                visibility_hints:tO_show,
+            });
+        }
+
+        if(this.props.DefaultValue != null && this.props.DefaultValue != undefined)
+        {
+            console.log("+." + this.props.DefaultValue);
+            this.setState({
+                defvalue: this.props.DefaultValue,
+            });
+        }
     }
 }
 
@@ -30,53 +71,38 @@ componentDidUpdate(prevprops){
         var itis = this;
 
 
-        function Switch_Result_Visibility(e){
-            if(document.getElementById("resultbox") != null){
-                document.getElementById("resultbox").style.visibility = e;
+        function Switch_Result_Visibility(){
+            if(this.state.visibility_hints == true){
+                document.getElementById("resultbox").style.visibility = "visible";
             } 
+            else{
+                document.getElementById("resultbox").style.visibility = "hidden";
+            }
         }
 
         var ld = this.props.onresult != undefined ? this.props.onresult : null;    
         var rslts = this.props.searchresults != undefined ? this.props.searchresults : null;    
 
-        Switch_Result_Visibility();
 
 
-        function OnResultItemClick(e){
-            document.getElementById("SearchInput").value = e;
-            itis.props.onValueChanged(e);
-            itis.setState({
-                defvalue: e,
-            });
-            Switch_Result_Visibility("hidden");
-        }
-
-        function Load_Results(){
-            if(rslts != null)
-            {
-                var ot = [];
-                for(var i=0; i<rslts.length; i++)
-                {
-                    var rs = rslts[i];
-                    ot.push(
-                            
-                        <div onClick={()=>OnResultItemClick(rs)} className="ResultItem">{rslts[i]}</div>
-                        
-                    );
-                }
-                Switch_Result_Visibility("visible");
-                return ot;
-            }
-        }
 
         function Searching_Results(){
             if(ld == undefined || ld == null){
-                Switch_Result_Visibility();
+                itis.setState({
+                    visibility_hints:false,
+                });
             }
             else{
                 if(document.getElementById("SearchInput").value == "")
                 {
-                    Switch_Result_Visibility();
+                    itis.setState({
+                        visibility_hints:false,
+                    });
+                }
+                else{
+                    itis.setState({
+                        visibility_hints:true,
+                    });
                 }
                 ld(document.getElementById("SearchInput").value);
             }
@@ -86,8 +112,8 @@ componentDidUpdate(prevprops){
         return(
             <>
             <input type="text" id="SearchInput" value={this.state.defvalue} placeholder={this.props.searchbar} onChange={Searching_Results}></input>
-            <div id="resultbox" className="Results">
-                {Load_Results()}
+            <div id="resultbox" className="Results" style={{visibility:itis.state.visibility_hints == true ? "visible" : "hidden",}}>
+                {this.state.resultsvalue}
             </div>
             </>
         );
