@@ -5,7 +5,7 @@
     position: absolute;
     left: 25%;
     right: 25%;
-    top: 10%;
+    top: 50%;
     padding: 2%;
     border: solid 20px rgb(167, 167, 167);
     background-color: rgb(211, 211, 211);
@@ -113,4 +113,61 @@ input[type=text]{
 .JobBoxDataSubHeading{
     font-size: small;
     color: grey;
+}
+
+.StoryBoard{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    height: 250px;
+    padding: 1.8%;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.StoryBox{
+    width: 170px;
+    height: 200px;
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgb(83, 83, 83);
+    margin-right: 1.5%;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    padding: 0.5%;
+}
+
+.StoryBox .Imag{
+    width: 100%;
+    height: 100%;
+}
+
+
+.Add_Story{
+    font-size: 50pt;
+    cursor: pointer;
+}
+
+.ImagDelete{
+    position: absolute;
+    margin-top: -20%;
+    margin-left: 12%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }

@@ -45,7 +45,7 @@ const Departments = ()=>{
        var All_Departments_List_temp = [];
         if(isitsearch == false){
             var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Departments", true); 
+                xhttp.open("GET", "http://localhost:4178/Departments", true); 
                 xhttp.setRequestHeader("Content-Type", "application/json");
                 xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -90,7 +90,7 @@ const Departments = ()=>{
 
         if(isitsearch == true){
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Department/Search/" + searchvalueis, true); 
+        xhttp.open("GET", "http://localhost:4178/Department/Search/" + searchvalueis, true); 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

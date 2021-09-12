@@ -2,6 +2,10 @@ import React from 'react';
 import NavBar from '../../components/NavBar/Navbar'; 
 import './Job.css';
 import SearchDropDown from '../../components/SearchDropDown/SearchDropDown';
+import { storage, ref, uploadBytesResumable, getDownloadURL } from "../../firebase/index";
+
+import Logo from '../../assets/images/ui_related/minilogo.png';
+import Delete from '../../assets/images/ui_related/delete.png';
 
 class AddJob extends React.Component{
 
@@ -28,6 +32,8 @@ class AddJob extends React.Component{
             Intrests:0,
             Applied:0,
             All_Departments: [],
+            Stories: [],
+            Show_Stories: [],
         }
 
         var itis = this;
@@ -37,7 +43,7 @@ class AddJob extends React.Component{
                 
                 var All_Departments_List_temp = [];
                     var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Departments", true); 
+                        xhttp.open("GET", "http://localhost:4178/Departments", true); 
                         xhttp.setRequestHeader("Content-Type", "application/json");
                         xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
@@ -65,18 +71,18 @@ class AddJob extends React.Component{
                 var jobnameis = this.props.match.params.JobName;
                 if(jobnameis != null && jobnameis != undefined)
                 {
-                    console.log(jobnameis)
                     var xhttp = new XMLHttpRequest();
-                    xhttp.open("GET", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Job/" + jobnameis, true); 
+                    xhttp.open("GET", "http://localhost:4178/Job/" + jobnameis, true); 
                     xhttp.setRequestHeader("Content-Type", "application/json");
                     xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = JSON.parse(this.responseText)[0];
                         if(response != null){
                             
+                            console.log("Date is " + response["AllDates"]);
                             itis.setState({
-                            Ages : response["AgeLimits"],
-                            Dates : response["AllDates"],
+                            Ages : response["AgeLimits"] != null && response["AgeLimits"] != undefined  && response["AgeLimits"] != "[object Object]" ? response["AgeLimits"] : [],
+                            Dates : response["AllDates"] != null && response["AllDates"] != undefined  && response["AllDates"] != "[object Object]" ? response["AllDates"] : [],
                             Applied : response["Applied"],
                             ApplyLink : response["ApplyLink"],
                             Department : response["Department"],
@@ -84,9 +90,10 @@ class AddJob extends React.Component{
                             Intrests: response["Intrests"],
                             Location: response["Location"],
                             Vacancies : response["NoofVacancies"],
-                            Qualifications : response["Qualification"],
+                            Qualifications : response["Qualification"] != null && response["Qualification"] != undefined  && response["Qualification"] != "[object Object]" ? response["Qualification"] : [],
                             Salary : response["Salary"],
-                            Title : response["Title"]
+                            Title : response["Title"],
+                            Stories: response["Stories"] != null && response["Stories"] != undefined  && response["Stories"] != "[object Object]" ? response["Stories"] : [],
                         });
 
                         console.log(itis.state.Department);
@@ -206,6 +213,43 @@ class AddJob extends React.Component{
                 }
             }
         }
+
+        
+        function Load_Stories(){
+            
+            var all_stories = [];
+            
+            for(var i=0; i<itis.state.Stories.length; i++){
+
+                var Its_url = itis.state.Stories[i];
+
+                all_stories.push(
+                    <>
+                    <div className="StoryBox">
+                        <div className="Imag">
+                            <img src={Its_url} width="100%" height="100%"></img>
+                        </div>
+                        <div className="ImagDelete" onClick={()=>Remove_URL(i-1)}>
+                            <img src={Delete} width="100%" height="100%"></img>
+                        </div>
+                    </div>
+                    </>
+                );
+            }
+            console.log(itis.state.Show_Stories.length + " == " + all_stories.length);
+            itis.setState({
+                Show_Stories:all_stories,
+            });
+            console.log(all_stories);
+        }
+
+        function Remove_URL(index){
+            console.log(index);
+            itis.state.Stories.splice(index, 1);
+            Load_Stories();
+        }
+
+                                    Load_Stories();
                                     Load_Qualifications();
                                     Load_Ages();
                                     Load_Dates();
@@ -233,6 +277,96 @@ class AddJob extends React.Component{
     render(){
 
         var itis = this;
+
+        function Upload_To_Cloud(touploadfile){
+
+            const storageRef = ref(storage, 'Stories/' + itis.state.Title + "/" + touploadfile.name);
+    
+    const uploadTask = uploadBytesResumable(storageRef, touploadfile);
+    
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+            case 'paused':
+                console.log('Upload is paused');
+                break;
+            case 'running':
+                console.log('Upload is running');
+                break;
+            }
+            }, 
+            (error) => {
+                // Handle unsuccessful uploads
+            }, 
+            () => {
+                // Handle successful uploads on complete
+                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                console.log('File available at', downloadURL);
+                        Add_Stories(downloadURL);
+                });
+            }
+            );
+    
+        }
+
+        function Create_new_Story(){
+            if(itis.state.Title != ""){
+                var fileloader = document.getElementById("Upload_Stories");
+                if('files' in fileloader && fileloader.files.length > 0)
+                {
+                    var tfile = fileloader.files[0];
+                    if(tfile != null && 'name' in tfile)
+                    {
+                        Upload_To_Cloud(tfile);
+                    }
+                }
+            }
+        }
+
+        
+        function Load_Stories(){
+            
+            var all_stories = [];
+            
+            for(var i=0; i<itis.state.Stories.length; i++){
+
+                var Its_url = itis.state.Stories[i];
+
+                all_stories.push(
+                    <>
+                    <div className="StoryBox">
+                        <div className="Imag">
+                            <img src={Its_url} width="100%" height="100%"></img>
+                        </div>
+                        <div className="ImagDelete" onClick={()=>Remove_URL(i-1)}>
+                            <img src={Delete} width="100%" height="100%"></img>
+                        </div>
+                    </div>
+                    </>
+                );
+            }
+            console.log(itis.state.Show_Stories.length + " == " + all_stories.length);
+            itis.setState({
+                Show_Stories:all_stories,
+            });
+            console.log(all_stories);
+        }
+
+        function Add_Stories(url){
+            itis.state.Stories.push(url);
+            Load_Stories();
+        }
+
+        function Remove_URL(index){
+            console.log(index);
+            itis.state.Stories.splice(index, 1);
+            Load_Stories();
+        }
 
 
         function Load_Qualifications(){
@@ -360,9 +494,9 @@ class AddJob extends React.Component{
         }
 
         function Save_Dates(event){
-
             if(event.key == "Enter")
             {
+                console.log(itis.state.Dates);
                 itis.state.Dates.push(document.getElementById("datesInputBox").value);
                 Load_Dates();
             }
@@ -425,7 +559,7 @@ class AddJob extends React.Component{
             console.log(itis.state);
 
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Job/Add", true); 
+            xhttp.open("POST", "http://localhost:4178/Job/Add", true); 
             xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.onreadystatechange = function() {
                 
@@ -447,7 +581,8 @@ class AddJob extends React.Component{
                 "NoofVacancies": itis.state.Vacancies,
                 "Qualification": itis.state.Qualifications,
                 "Salary": itis.state.Salary,
-                "Title": itis.state.Title
+                "Title": itis.state.Title,
+                "Stories":itis.state.Stories,
             }
 
             xhttp.send(JSON.stringify(information));
@@ -456,6 +591,19 @@ class AddJob extends React.Component{
 
         return (
         <>
+
+        <div className="StoryBoard">
+             <div className="StoryBox Add_Story">
+                <div>
+                    <input id="Upload_Stories" type="file" hidden placeholder="name of the department" onChange={Create_new_Story} ></input>
+                    <label className="UploadStoriesButtonLabel" htmlFor="Upload_Stories">+</label >
+                </div>
+             </div>
+             {this.state.Show_Stories}
+            
+        </div>
+
+
         <div className="AddJobBox">
              <h1><b>new job application form</b></h1>
              <br/>

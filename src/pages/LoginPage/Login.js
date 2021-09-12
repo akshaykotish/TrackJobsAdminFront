@@ -19,7 +19,7 @@ const Login = ()=>{
     function Login_Now(){
         
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Security/Login", true); 
+        xhttp.open("POST", "http://localhost:4178/Security/Login", true); 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.onreadystatechange = function() {
             

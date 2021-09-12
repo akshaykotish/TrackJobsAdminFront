@@ -115,7 +115,7 @@ uploadTask.on('state_changed',
         if(document.getElementById("DepartmentName") != null && document.getElementById("DepartmentName").value != "")
         {
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Department/Add", true); 
+            xhttp.open("POST", "http://localhost:4178/Department/Add", true); 
             xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.onreadystatechange = function() {
             HidePopupModel();
@@ -275,7 +275,7 @@ uploadTask.on('state_changed',
         if(document.getElementById("DepartmentName") != null && document.getElementById("DepartmentName").value != "")
         {
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Department/Add", true); 
+            xhttp.open("POST", "http://localhost:4178/Department/Add", true); 
             xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.onreadystatechange = function() {
             HidePopupModel();

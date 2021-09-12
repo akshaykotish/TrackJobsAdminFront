@@ -19,7 +19,7 @@ class Jobs extends React.Component{
             var All_Jobs_List_temp = [];
             if(itis.state.isitsearch == false){
                 var xhttp = new XMLHttpRequest();
-                    xhttp.open("GET", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Jobs", true); 
+                    xhttp.open("GET", "http://localhost:4178/Jobs", true); 
                     xhttp.setRequestHeader("Content-Type", "application/json");
                     xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
@@ -81,7 +81,7 @@ class Jobs extends React.Component{
 
         if(itis.state.isitsearch == true){
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://trackjobsadmin.us-east-2.elasticbeanstalk.com/Jobs/Search/" + searchvalueis, true); 
+        xhttp.open("GET", "http://localhost:4178/Jobs/Search/" + searchvalueis, true); 
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
