@@ -34,9 +34,32 @@ class AddJob extends React.Component{
             All_Departments: [],
             Stories: [],
             Show_Stories: [],
+            JobID: "",
         }
 
         var itis = this;
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+          }
+        function GenerateJobID(){
+            
+            var date = new Date();
+            var JobID = date.toLocaleDateString().replace("/", "") + date.toLocaleTimeString().replace(":", "");
+            JobID = JobID.replace("/", "")
+            JobID = JobID.replace(":", "");
+            JobID += getRandomInt(100000000000);
+            JobID = JobID.replace(" ", "");
+            console.log(JobID);
+
+            var v = setTimeout(()=>{
+                itis.setState({
+                    JobID: JobID,
+                });
+            }, 100);
+           
+        }
+
         if(itis.state.IsDataLoaded == false){
             console.log("Departments Loading");
             function Load_All_Departments(){
@@ -68,11 +91,11 @@ class AddJob extends React.Component{
                 }
                 Load_All_Departments();
 
-                var jobnameis = this.props.match.params.JobName;
-                if(jobnameis != null && jobnameis != undefined)
+                var jobidis = this.props.match.params.JobName;
+                if(jobidis != null && jobidis != undefined)
                 {
                     var xhttp = new XMLHttpRequest();
-                    xhttp.open("GET", "http://localhost:4178/Job/" + jobnameis, true); 
+                    xhttp.open("GET", "http://localhost:4178/Job/" + jobidis, true); 
                     xhttp.setRequestHeader("Content-Type", "application/json");
                     xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
@@ -94,6 +117,7 @@ class AddJob extends React.Component{
                             Salary : response["Salary"],
                             Title : response["Title"],
                             Stories: response["Stories"] != null && response["Stories"] != undefined  && response["Stories"] != "[object Object]" ? response["Stories"] : [],
+                            JobID: response["JobID"] != null && response["JobID"] != undefined  && response["JobID"] != "[object Object]" ? response["JobID"] : GenerateJobID(),
                         });
 
                         console.log(itis.state.Department);
@@ -175,7 +199,8 @@ class AddJob extends React.Component{
 
                                         itis.setState({ShowDates: dates});
                                         return dates;
-                                    }
+                    }
+                    
 
                                     
         function Remove_Qualification(qualification){
@@ -260,6 +285,9 @@ class AddJob extends React.Component{
                     
                     xhttp.send();
                 }
+                else{
+                    GenerateJobID();
+                }
 
 
                 itis.setState({
@@ -280,7 +308,7 @@ class AddJob extends React.Component{
 
         function Upload_To_Cloud(touploadfile){
 
-            const storageRef = ref(storage, 'Stories/' + itis.state.Title + "/" + touploadfile.name);
+            const storageRef = ref(storage, 'Stories/' + itis.state.JobID + "/" + touploadfile.name);
     
     const uploadTask = uploadBytesResumable(storageRef, touploadfile);
     
@@ -358,7 +386,7 @@ class AddJob extends React.Component{
         }
 
         function Add_Stories(url){
-            itis.state.Stories.push(url);
+            itis.state.Stories.push(url + ";" + new Date().toISOString());
             Load_Stories();
         }
 
@@ -527,7 +555,7 @@ class AddJob extends React.Component{
             for(var i=0; i<itis.state.All_Departments.length; i++)
             {
                 var DataforSearch = itis.state.All_Departments[i];
-                var result = DataforSearch.toLowerCase().includes(e);
+                var result = DataforSearch.toLowerCase().includes(e.toLowerCase());
                 if(result == true)
                 {
                     searchedResults.push(DataforSearch);
@@ -554,6 +582,9 @@ class AddJob extends React.Component{
             });
         }
 
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+          }
 
         function OnSave(){
             console.log(itis.state);
@@ -569,6 +600,7 @@ class AddJob extends React.Component{
             }
             };
 
+
             var information = {
                 "AgeLimits" : itis.state.Ages,
                 "AllDates" : itis.state.Dates,
@@ -583,6 +615,7 @@ class AddJob extends React.Component{
                 "Salary": itis.state.Salary,
                 "Title": itis.state.Title,
                 "Stories":itis.state.Stories,
+                "JobID":itis.state.JobID,
             }
 
             xhttp.send(JSON.stringify(information));

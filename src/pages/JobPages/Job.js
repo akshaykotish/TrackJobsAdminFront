@@ -9,7 +9,7 @@ class Job extends React.Component{
 
         return (
             <>
-            <div className="JobBox" onClick={()=>{ window.open("/AddJob/" + this.props.Title, '_blank').focus();}}>
+            <div className="JobBox" onClick={()=>{ window.open("/AddJob/" + this.props.JobID, '_blank').focus();}}>
             <div className="JobBoxLogo"><img src={Logo} width="40"></img></div>
             <div className="JobBoxData">
                 <span className="JobBoxDataHeading">

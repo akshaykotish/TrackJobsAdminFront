@@ -31,7 +31,7 @@ class Jobs extends React.Component{
                                     All_Jobs_List_temp.push(
                                         <>
                                             <div>
-                                                <Job Title={dept["Title"]} Department={dept["Department"]} Location={dept["Location"]} />
+                                                <Job JobID={dept["JobID"]}  Title={dept["Title"]} Department={dept["Department"]} Location={dept["Location"]} />
                                             </div>
                                         </>
                                     );
@@ -94,7 +94,7 @@ class Jobs extends React.Component{
                         Search_Jobs_List_temp.push(
                             <>
                             <div>
-                                <Job Title={dept["Title"]} Department={dept["Department"]} Location={dept["Location"]} />
+                                <Job JobID={dept["JobID"]} Title={dept["Title"]} Department={dept["Department"]} Location={dept["Location"]} />
                             </div>
                         </>
                         );
